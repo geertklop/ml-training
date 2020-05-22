@@ -1,0 +1,26 @@
+venv/
+
+*.iws
+workspace.xml
+tasks.xml
+
+*.pyc
+__pycache__/
+.ipynb_checkpoints/
+
+instance/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+dist/
+build/
+*.egg-info/
+
+*.db
+*.secrets
+
+# Pycharm & Vscode
+*.idea
+.vscode/
