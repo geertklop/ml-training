@@ -1,9 +1,8 @@
-import silence_tensorflow.auto
+import silence_tensorflow.auto  # noqa: F401
 import tensorflow as tf
 
 
 class CustomDenseLayer(tf.keras.layers.Layer):
-
     def __init__(self, units):
         super(CustomDenseLayer, self).__init__()
         self.units = units
@@ -29,7 +28,7 @@ if __name__ == "__main__":
     layer = CustomDenseLayer(3)
     layer.build((1, 2))
 
-    x_input = tf.constant([[1, 2.]], shape=(1, 2))
+    x_input = tf.constant([[1, 2.0]], shape=(1, 2))
     y = layer.call(x_input)
 
     print(y.numpy())

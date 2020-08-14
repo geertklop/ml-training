@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.metrics import accuracy_score
-from utils import sigmoid, load_planar_dataset
+from .utils import sigmoid, load_planar_dataset
 
 
 class NeuralNet:
@@ -35,7 +35,7 @@ class NeuralNet:
         self.b = {}
 
         for i in range(1, self.n_layers):
-            self.w[i] = np.random.randn(dimensions[i], dimensions[i-1]) * 0.01
+            self.w[i] = np.random.randn(dimensions[i], dimensions[i - 1]) * 0.01
             self.b[i] = np.zeros((dimensions[i], 1))
 
         # Init activations & cache dicts
@@ -49,7 +49,7 @@ class NeuralNet:
         self.a = {0: X}
 
         for i in range(1, self.n_layers):
-            self.z[i] = np.dot(self.w[i], self.a[i-1]) + self.b[i]
+            self.z[i] = np.dot(self.w[i], self.a[i - 1]) + self.b[i]
             self.a[i] = self.activations[i](self.z[i])
 
         return self.z, self.a
@@ -75,15 +75,16 @@ class NeuralNet:
         m = y.shape[1]  # number of training examples
 
         # Compute the cross-entropy cost
-        logprobs = np.multiply(np.log(y_pred), y) + \
-            np.multiply((1 - y), np.log(1 - y_pred))
+        logprobs = np.multiply(np.log(y_pred), y) + np.multiply(
+            (1 - y), np.log(1 - y_pred)
+        )
 
-        cost = - np.sum(logprobs) / m
+        cost = -np.sum(logprobs) / m
 
         # Make sure cost is right dimension. E.g., turns [[17]] into 17
         self.loss = np.squeeze(cost)
 
-        assert (isinstance(self.loss, float))
+        assert isinstance(self.loss, float)
 
         return self.loss
 
@@ -117,8 +118,9 @@ class NeuralNet:
             db = (1 / m) * np.sum(dz, axis=1, keepdims=True)
 
             if i > 1:
-                dz = np.multiply(np.dot(self.w[i].T, dz),
-                                 1 - np.power(self.a[i-1], 2))
+                dz = np.multiply(
+                    np.dot(self.w[i].T, dz), 1 - np.power(self.a[i - 1], 2)
+                )
 
             update_params[i] = (dw, db)
 
@@ -164,7 +166,7 @@ class NeuralNet:
                 print("Cost after iteration %i: %f" % (i, cost))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     X_train, y_train = load_planar_dataset(m=1000)
     X_test, y_test = load_planar_dataset(m=400)
 
